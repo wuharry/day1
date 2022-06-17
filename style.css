@@ -1,0 +1,52 @@
+html {
+    font-size: 10px;
+    background: url(http://i.imgur.com/b9r5sEL.jpg) bottom center;/*引入背景*/
+    background-size: cover;
+  }
+  body,html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif; /* 字型 */
+    
+  }
+  
+  .keys {
+    display: flex;
+    flex: 1;
+    min-height: 100vh; /*vh =螢幕寬度*/
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .key {
+    border: .4rem solid black;
+    border-radius: .5rem;/*border-radius=外边框圆角(作品參考)*/
+    /*rem=以16px(網頁初始(字型)的比例)為倍數去縮放，放大0.5倍*/
+    margin: 1rem;
+    font-size: 1.5rem;
+    padding: 1rem .5rem;
+    transition: all .07s ease; /* 讓物件在兩個狀態之間產生轉場效果 (作品參考)*/
+    width: 10rem;
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    text-shadow: 0 0 .5rem black;
+  }
+  
+  .playing {
+    transform: scale(1.1); /* 放大1.1倍(作品參考) */
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+  }
+  
+  kbd {
+    display: block;
+    font-size: 4rem;
+  }
+  
+  .sound {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    color: #ffc600;
+  }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JS Drum Kit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="keys">
+    <!-- html鍵盤部分 -->
+<div data-key="65" class="key"><!-- 每一個按鍵都有自己keycode,A=65 -->
+    <kbd>A</kbd>
+    <span class="sound">clap</span>
+</div>
+<div data-key="83" class="key">
+    <kbd>S</kbd>
+    <span class="sound">hihat</span>
+</div>
+<div data-key="68" class="key">
+    <kbd>D</kbd>
+    <span class="sound">kick</span>
+</div>
+<div data-key="70" class="key">
+    <kbd>F</kbd>
+    <span class="sound">openhat</span>
+</div>
+<div data-key="71" class="key">
+    <kbd>G</kbd>
+    <span class="sound">boom</span>
+</div>
+<div data-key="72" class="key">
+    <kbd>H</kbd>
+    <span class="sound">ride</span>
+</div>
+<div data-key="74" class="key">
+    <kbd>J</kbd>
+    <span class="sound">snare</span>
+</div>
+<div data-key="75" class="key">
+    <kbd>K</kbd>
+    <span class="sound">tom</span>
+</div>
+<div data-key="76" class="key">
+    <kbd>L</kbd>
+    <span class="sound">tink</span>
+</div>
+</div>
+<!-- 這個區域是引入音源，並且指定data-key -->
+<audio data-key="65" src="sound/clap.wav"></audio>
+<audio data-key="83" src="sound/hihat.wav"></audio>
+<audio data-key="68" src="sound/kick.wav"></audio>
+<audio data-key="70" src="sound/openhat.wav"></audio>
+<audio data-key="71" src="sound/boom.wav"></audio>
+<audio data-key="72" src="sound/ride.wav"></audio>
+<audio data-key="74" src="sound/snare.wav"></audio>
+<audio data-key="75" src="sound/tom.wav"></audio>
+<audio data-key="76" src="sound/tink.wav"></audio>
+
+<script>
+// 將程式包起來讓外部無法使用內部的變數=(function(){})
+(function(){
+
+//事件觸發(鍵盤)
+window.addEventListener('keydown',playHandler)//window(目標物件)addEventListener(觸發函式)[事件類型,指定要事件触发时执行的函数]
+
+//事件進行(波音樂，顏色變化)
+function playHandler(e){
+    //當事件觸發(playHandler)時，會做兩件事
+    // querySelector類似getelement不過是靜態存取的選擇器(不隨時存取變數)，類似CSS的選擇器querySelector(選擇的內容名)
+    //加上兩個反斜線來跳脫錯誤的字元
+   const audio=document.querySelector(`audio[data-key="${e.keyCode}"]`)//選擇html裡的auido標籤>的datakey=e的
+    
+    if(audio){
+        audio.currentTime=0;//重複撥的延遲(元素.currentTime)
+        audio.play()
+
+    }//當事件觸發時，撥放音樂，重複撥延遲0秒後回撥放起點
+
+   //DOM
+   const dom=document.querySelector(`div[data-key="${e.keyCode}"]`)
+   //classList 元素添加 class屬性
+   if(dom)dom.classList.add('playing')//為dom元素增加playing的CSS
+   
+   document.querySelectorAll('.key').forEach(function(key){
+       key.addEventListener('transitionend',transitionendler)//為'key'增加動畫結束事件
+   })
+   //querySelectorAll('目標') 會選取所有符合"目標"的'標籤'並以nodelist的資料型式回傳
+
+   function transitionendler(e){
+    // console.log(e)
+    if(e.propertyName==='transform'){
+        e.currentTarget.classList.remove('playing')//兩者非常類似
+        // e.target.classList.remove('playing')
+    }
+
+   }
+//    console.log(audio,dom)
+}
+})()
+</script>
+
+</body>
+</html>
